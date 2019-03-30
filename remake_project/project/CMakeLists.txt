@@ -1,0 +1,483 @@
+cmake_minimum_required(VERSION 3.13)
+project(game)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(glm)
+include_directories(glm/detail)
+include_directories(glm/ext)
+include_directories(glm/gtc)
+include_directories(glm/gtx)
+include_directories(glm/simd)
+include_directories(Packt_CreatingGamesWithAI/Application)
+include_directories(Packt_CreatingGamesWithAI/BaseGamingAssests)
+include_directories(Packt_CreatingGamesWithAI/Basics)
+include_directories(Packt_CreatingGamesWithAI/Basics/BaseClasses)
+include_directories(Packt_CreatingGamesWithAI/Basics/Collision)
+include_directories(Packt_CreatingGamesWithAI/Basics/DataStructures)
+include_directories(Packt_CreatingGamesWithAI/Basics/DecisionTree)
+include_directories(Packt_CreatingGamesWithAI/Basics/Graph)
+include_directories(Packt_CreatingGamesWithAI/Basics/Graph/AStar)
+include_directories(Packt_CreatingGamesWithAI/Basics/Graph/AStar/Heuristics)
+include_directories(Packt_CreatingGamesWithAI/Basics/Graph/GraphEdges)
+include_directories(Packt_CreatingGamesWithAI/Basics/Graph/GraphNodes)
+include_directories(Packt_CreatingGamesWithAI/Basics/Helpers)
+include_directories(Packt_CreatingGamesWithAI/Basics/Movement)
+include_directories(Packt_CreatingGamesWithAI/Basics/Observer)
+include_directories(Packt_CreatingGamesWithAI/Basics/StateMachines)
+include_directories(Packt_CreatingGamesWithAI/BattleCity)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/GameObjects)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/TankAI)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/TankAI/Actions)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/TankAI/Decisions)
+include_directories(Packt_CreatingGamesWithAI/BattleCity/TankAI/DT)
+include_directories(Packt_CreatingGamesWithAI/Input-Events)
+include_directories(Packt_CreatingGamesWithAI/Input-Events/EventManagers)
+include_directories(Packt_CreatingGamesWithAI/Input-Events/Events)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/Locomotions)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Alarm)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI/States)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Key)
+include_directories(Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Wall)
+include_directories(Packt_CreatingGamesWithAI/Rendering)
+include_directories(Packt_CreatingGamesWithAI/Rendering/TextureRelated)
+include_directories(Packt_CreatingGamesWithAI/TictacToeGame)
+
+add_executable(game
+        glm/detail/_features.hpp
+        glm/detail/_fixes.hpp
+        glm/detail/_noise.hpp
+        glm/detail/_swizzle.hpp
+        glm/detail/_swizzle_func.hpp
+        glm/detail/_vectorize.hpp
+        glm/detail/compute_vector_relational.hpp
+        glm/detail/dummy.cpp
+        glm/detail/func_common.inl
+        glm/detail/func_common_simd.inl
+        glm/detail/func_exponential.inl
+        glm/detail/func_exponential_simd.inl
+        glm/detail/func_geometric.inl
+        glm/detail/func_geometric_simd.inl
+        glm/detail/func_integer.inl
+        glm/detail/func_integer_simd.inl
+        glm/detail/func_matrix.inl
+        glm/detail/func_matrix_simd.inl
+        glm/detail/func_packing.inl
+        glm/detail/func_packing_simd.inl
+        glm/detail/func_trigonometric.inl
+        glm/detail/func_trigonometric_simd.inl
+        glm/detail/func_vector_relational.inl
+        glm/detail/func_vector_relational_simd.inl
+        glm/detail/glm.cpp
+        glm/detail/qualifier.hpp
+        glm/detail/setup.hpp
+        glm/detail/type_float.hpp
+        glm/detail/type_gentype.hpp
+        glm/detail/type_gentype.inl
+        glm/detail/type_half.hpp
+        glm/detail/type_half.inl
+        glm/detail/type_int.hpp
+        glm/detail/type_mat.hpp
+        glm/detail/type_mat.inl
+        glm/detail/type_mat2x2.hpp
+        glm/detail/type_mat2x2.inl
+        glm/detail/type_mat2x3.hpp
+        glm/detail/type_mat2x3.inl
+        glm/detail/type_mat2x4.hpp
+        glm/detail/type_mat2x4.inl
+        glm/detail/type_mat3x2.hpp
+        glm/detail/type_mat3x2.inl
+        glm/detail/type_mat3x3.hpp
+        glm/detail/type_mat3x3.inl
+        glm/detail/type_mat3x4.hpp
+        glm/detail/type_mat3x4.inl
+        glm/detail/type_mat4x2.hpp
+        glm/detail/type_mat4x2.inl
+        glm/detail/type_mat4x3.hpp
+        glm/detail/type_mat4x3.inl
+        glm/detail/type_mat4x4.hpp
+        glm/detail/type_mat4x4.inl
+        glm/detail/type_mat4x4_simd.inl
+        glm/detail/type_vec.hpp
+        glm/detail/type_vec.inl
+        glm/detail/type_vec1.hpp
+        glm/detail/type_vec1.inl
+        glm/detail/type_vec2.hpp
+        glm/detail/type_vec2.inl
+        glm/detail/type_vec3.hpp
+        glm/detail/type_vec3.inl
+        glm/detail/type_vec4.hpp
+        glm/detail/type_vec4.inl
+        glm/detail/type_vec4_simd.inl
+        glm/ext/vec1.hpp
+        glm/ext/vec1.inl
+        glm/ext/vector_relational.hpp
+        glm/ext/vector_relational.inl
+        glm/gtc/bitfield.hpp
+        glm/gtc/bitfield.inl
+        glm/gtc/color_space.hpp
+        glm/gtc/color_space.inl
+        glm/gtc/constants.hpp
+        glm/gtc/constants.inl
+        glm/gtc/epsilon.hpp
+        glm/gtc/epsilon.inl
+        glm/gtc/integer.hpp
+        glm/gtc/integer.inl
+        glm/gtc/matrix_access.hpp
+        glm/gtc/matrix_access.inl
+        glm/gtc/matrix_integer.hpp
+        glm/gtc/matrix_inverse.hpp
+        glm/gtc/matrix_inverse.inl
+        glm/gtc/matrix_transform.hpp
+        glm/gtc/matrix_transform.inl
+        glm/gtc/noise.hpp
+        glm/gtc/noise.inl
+        glm/gtc/packing.hpp
+        glm/gtc/packing.inl
+        glm/gtc/quaternion.hpp
+        glm/gtc/quaternion.inl
+        glm/gtc/quaternion_simd.inl
+        glm/gtc/random.hpp
+        glm/gtc/random.inl
+        glm/gtc/reciprocal.hpp
+        glm/gtc/reciprocal.inl
+        glm/gtc/round.hpp
+        glm/gtc/round.inl
+        glm/gtc/type_aligned.hpp
+        glm/gtc/type_precision.hpp
+        glm/gtc/type_precision.inl
+        glm/gtc/type_ptr.hpp
+        glm/gtc/type_ptr.inl
+        glm/gtc/ulp.hpp
+        glm/gtc/ulp.inl
+        glm/gtc/vec1.hpp
+        glm/gtc/vec1.inl
+        glm/gtx/associated_min_max.hpp
+        glm/gtx/associated_min_max.inl
+        glm/gtx/bit.hpp
+        glm/gtx/bit.inl
+        glm/gtx/closest_point.hpp
+        glm/gtx/closest_point.inl
+        glm/gtx/color_encoding.hpp
+        glm/gtx/color_encoding.inl
+        glm/gtx/color_space.hpp
+        glm/gtx/color_space.inl
+        glm/gtx/color_space_YCoCg.hpp
+        glm/gtx/color_space_YCoCg.inl
+        glm/gtx/common.hpp
+        glm/gtx/common.inl
+        glm/gtx/compatibility.hpp
+        glm/gtx/compatibility.inl
+        glm/gtx/component_wise.hpp
+        glm/gtx/component_wise.inl
+        glm/gtx/dual_quaternion.hpp
+        glm/gtx/dual_quaternion.inl
+        glm/gtx/euler_angles.hpp
+        glm/gtx/euler_angles.inl
+        glm/gtx/extend.hpp
+        glm/gtx/extend.inl
+        glm/gtx/extended_min_max.hpp
+        glm/gtx/extended_min_max.inl
+        glm/gtx/exterior_product.hpp
+        glm/gtx/exterior_product.inl
+        glm/gtx/fast_exponential.hpp
+        glm/gtx/fast_exponential.inl
+        glm/gtx/fast_square_root.hpp
+        glm/gtx/fast_square_root.inl
+        glm/gtx/fast_trigonometry.hpp
+        glm/gtx/fast_trigonometry.inl
+        glm/gtx/float_notmalize.inl
+        glm/gtx/functions.hpp
+        glm/gtx/functions.inl
+        glm/gtx/gradient_paint.hpp
+        glm/gtx/gradient_paint.inl
+        glm/gtx/handed_coordinate_space.hpp
+        glm/gtx/handed_coordinate_space.inl
+        glm/gtx/hash.hpp
+        glm/gtx/hash.inl
+        glm/gtx/integer.hpp
+        glm/gtx/integer.inl
+        glm/gtx/intersect.hpp
+        glm/gtx/intersect.inl
+        glm/gtx/io.hpp
+        glm/gtx/io.inl
+        glm/gtx/log_base.hpp
+        glm/gtx/log_base.inl
+        glm/gtx/matrix_cross_product.hpp
+        glm/gtx/matrix_cross_product.inl
+        glm/gtx/matrix_decompose.hpp
+        glm/gtx/matrix_decompose.inl
+        glm/gtx/matrix_factorisation.hpp
+        glm/gtx/matrix_factorisation.inl
+        glm/gtx/matrix_interpolation.hpp
+        glm/gtx/matrix_interpolation.inl
+        glm/gtx/matrix_major_storage.hpp
+        glm/gtx/matrix_major_storage.inl
+        glm/gtx/matrix_operation.hpp
+        glm/gtx/matrix_operation.inl
+        glm/gtx/matrix_query.hpp
+        glm/gtx/matrix_query.inl
+        glm/gtx/matrix_transform_2d.hpp
+        glm/gtx/matrix_transform_2d.inl
+        glm/gtx/mixed_product.hpp
+        glm/gtx/mixed_product.inl
+        glm/gtx/norm.hpp
+        glm/gtx/norm.inl
+        glm/gtx/normal.hpp
+        glm/gtx/normal.inl
+        glm/gtx/normalize_dot.hpp
+        glm/gtx/normalize_dot.inl
+        glm/gtx/number_precision.hpp
+        glm/gtx/number_precision.inl
+        glm/gtx/optimum_pow.hpp
+        glm/gtx/optimum_pow.inl
+        glm/gtx/orthonormalize.hpp
+        glm/gtx/orthonormalize.inl
+        glm/gtx/perpendicular.hpp
+        glm/gtx/perpendicular.inl
+        glm/gtx/polar_coordinates.hpp
+        glm/gtx/polar_coordinates.inl
+        glm/gtx/projection.hpp
+        glm/gtx/projection.inl
+        glm/gtx/quaternion.hpp
+        glm/gtx/quaternion.inl
+        glm/gtx/range.hpp
+        glm/gtx/raw_data.hpp
+        glm/gtx/raw_data.inl
+        glm/gtx/rotate_normalized_axis.hpp
+        glm/gtx/rotate_normalized_axis.inl
+        glm/gtx/rotate_vector.hpp
+        glm/gtx/rotate_vector.inl
+        glm/gtx/scalar_multiplication.hpp
+        glm/gtx/scalar_relational.hpp
+        glm/gtx/scalar_relational.inl
+        glm/gtx/spline.hpp
+        glm/gtx/spline.inl
+        glm/gtx/std_based_type.hpp
+        glm/gtx/std_based_type.inl
+        glm/gtx/string_cast.hpp
+        glm/gtx/string_cast.inl
+        glm/gtx/texture.hpp
+        glm/gtx/texture.inl
+        glm/gtx/transform.hpp
+        glm/gtx/transform.inl
+        glm/gtx/transform2.hpp
+        glm/gtx/transform2.inl
+        glm/gtx/type_aligned.hpp
+        glm/gtx/type_aligned.inl
+        glm/gtx/type_trait.hpp
+        glm/gtx/type_trait.inl
+        glm/gtx/vec_swizzle.hpp
+        glm/gtx/vector_angle.hpp
+        glm/gtx/vector_angle.inl
+        glm/gtx/vector_query.hpp
+        glm/gtx/vector_query.inl
+        glm/gtx/wrap.hpp
+        glm/gtx/wrap.inl
+        glm/simd/common.h
+        glm/simd/exponential.h
+        glm/simd/geometric.h
+        glm/simd/integer.h
+        glm/simd/matrix.h
+        glm/simd/packing.h
+        glm/simd/platform.h
+        glm/simd/trigonometric.h
+        glm/simd/vector_relational.h
+        glm/CMakeLists.txt
+        glm/common.hpp
+        glm/exponential.hpp
+        glm/ext.hpp
+        glm/fwd.hpp
+        glm/geometric.hpp
+        glm/glm.hpp
+        glm/integer.hpp
+        glm/mat2x2.hpp
+        glm/mat2x3.hpp
+        glm/mat2x4.hpp
+        glm/mat3x2.hpp
+        glm/mat3x3.hpp
+        glm/mat3x4.hpp
+        glm/mat4x2.hpp
+        glm/mat4x3.hpp
+        glm/mat4x4.hpp
+        glm/matrix.hpp
+        glm/packing.hpp
+        glm/trigonometric.hpp
+        glm/vec2.hpp
+        glm/vec3.hpp
+        glm/vec4.hpp
+        glm/vector_relational.hpp
+        Packt_CreatingGamesWithAI/Application/Application.cpp
+        Packt_CreatingGamesWithAI/Application/Application.hpp
+        Packt_CreatingGamesWithAI/Application/ApplicationManager.cpp
+        Packt_CreatingGamesWithAI/Application/ApplicationManager.hpp
+        Packt_CreatingGamesWithAI/BaseGamingAssests/GameCharacter.hpp
+        Packt_CreatingGamesWithAI/BaseGamingAssests/GameCharacterController.cpp
+        Packt_CreatingGamesWithAI/BaseGamingAssests/GameCharacterController.hpp
+        Packt_CreatingGamesWithAI/BaseGamingAssests/IGameObject.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/AbstractGameWorld.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/GameObject.cpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/GameObject.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/Grid.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/MovingObject.cpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/MovingObject.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/Object.cpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/Object.hpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/VisualObject.cpp
+        Packt_CreatingGamesWithAI/Basics/BaseClasses/VisualObject.hpp
+        Packt_CreatingGamesWithAI/Basics/Collision/BoxCollider.cpp
+        Packt_CreatingGamesWithAI/Basics/Collision/BoxCollider.hpp
+        Packt_CreatingGamesWithAI/Basics/Collision/Collider.cpp
+        Packt_CreatingGamesWithAI/Basics/Collision/Collider.hpp
+        Packt_CreatingGamesWithAI/Basics/Collision/CollisionGrid.hpp
+        Packt_CreatingGamesWithAI/Basics/DataStructures/IndexedPriorityQueueLow.hpp
+        Packt_CreatingGamesWithAI/Basics/DecisionTree/BaseDecisionTreeBuilder.hpp
+        Packt_CreatingGamesWithAI/Basics/DecisionTree/DecisionNodes.hpp
+        Packt_CreatingGamesWithAI/Basics/DecisionTree/DT_DecisionTree.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/AStar/Heuristics/AStarHeuristics.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/AStar/Heuristics/AStarSearch.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/GraphEdges/GraphEdge.cpp
+        Packt_CreatingGamesWithAI/Basics/Graph/GraphEdges/GraphEdge.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/GraphNodes/GraphNode.cpp
+        Packt_CreatingGamesWithAI/Basics/Graph/GraphNodes/GraphNode.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/GraphNodes/NavGraphNode.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/PathPlanner.cpp
+        Packt_CreatingGamesWithAI/Basics/Graph/PathPlanner.hpp
+        Packt_CreatingGamesWithAI/Basics/Graph/SparseGraph.hpp
+        Packt_CreatingGamesWithAI/Basics/Helpers/IdManager.cpp
+        Packt_CreatingGamesWithAI/Basics/Helpers/IdManager.hpp
+        Packt_CreatingGamesWithAI/Basics/Helpers/TextureLoader.cpp
+        Packt_CreatingGamesWithAI/Basics/Helpers/TextureLoader.hpp
+        Packt_CreatingGamesWithAI/Basics/Movement/Locomotion.hpp
+        Packt_CreatingGamesWithAI/Basics/Observer/IEventCallbacks.hpp
+        Packt_CreatingGamesWithAI/Basics/Observer/Observer.cpp
+        Packt_CreatingGamesWithAI/Basics/Observer/Observer.hpp
+        Packt_CreatingGamesWithAI/Basics/Observer/Subject.hpp
+        Packt_CreatingGamesWithAI/Basics/StateMachines/State.hpp
+        Packt_CreatingGamesWithAI/Basics/StateMachines/StateMachine.hpp
+        Packt_CreatingGamesWithAI/Basics/Commons.cpp
+        Packt_CreatingGamesWithAI/Basics/Commons.hpp
+        Packt_CreatingGamesWithAI/Basics/Timer.cpp
+        Packt_CreatingGamesWithAI/Basics/Timer.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/Tank.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/Tank.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankCharacter.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankCharacter.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankCommons.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankLocomotion.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankLocomotion.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankMissile.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankMissile.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankMissileManager.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/TankRelatedGameObjects/TankMissileManager.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/ExplosionAnimation.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/ExplosionAnimation.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/Player.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/Player.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/Wall.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameObjects/Wall.hpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/Actions/TankActions.cpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/Actions/TankActions.hpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/Decisions/TankDecisions.cpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/Decisions/TankDecisions.hpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/DT/BC_DecisionTreeBuilders.cpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/DT/BC_DecisionTreeBuilders.hpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/DT/BC_TankAiFactory.cpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/DT/BC_TankAiFactory.hpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/TankAI.cpp
+        Packt_CreatingGamesWithAI/BattleCity/TankAI/TankAI.hpp
+        Packt_CreatingGamesWithAI/BattleCity/BattleCityCommons.hpp
+        Packt_CreatingGamesWithAI/BattleCity/BattleCityGame.cpp
+        Packt_CreatingGamesWithAI/BattleCity/BattleCityGame.hpp
+        Packt_CreatingGamesWithAI/BattleCity/BattleCityGameWorld.cpp
+        Packt_CreatingGamesWithAI/BattleCity/BattleCityGameWorld.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameEventManager.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameEventManager.hpp
+        Packt_CreatingGamesWithAI/BattleCity/GameWorldInfo.cpp
+        Packt_CreatingGamesWithAI/BattleCity/GameWorldInfo.hpp
+        Packt_CreatingGamesWithAI/BattleCity/LegacyGameCharacter.cpp
+        Packt_CreatingGamesWithAI/BattleCity/LegacyGameCharacter.hpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/ActionEventManager.cpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/ActionEventManager.hpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/KeyboardEventManager.cpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/KeyboardEventManager.hpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/MouseEventManager.cpp
+        Packt_CreatingGamesWithAI/Input-Events/EventManagers/MouseEventManager.hpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/ActionEvent.cpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/ActionEvent.hpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/Event.cpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/Event.hpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/KeyboardEvents.cpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/KeyboardEvents.hpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/MouseEvents.cpp
+        Packt_CreatingGamesWithAI/Input-Events/Events/MouseEvents.hpp
+        Packt_CreatingGamesWithAI/Input-Events/ApplicationInputManager.cpp
+        Packt_CreatingGamesWithAI/Input-Events/ApplicationInputManager.hpp
+        Packt_CreatingGamesWithAI/Input-Events/InputManager.cpp
+        Packt_CreatingGamesWithAI/Input-Events/InputManager.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/Locomotions/PLG_CircleLocomotion.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/Locomotions/PLG_CircleLocomotion.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Alarm/PLG_Alarm.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Alarm/PLG_AlarmController.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Alarm/PLG_AlarmController.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI/States/PLG_EnemyAiStates.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI/States/PLG_EnemyAiStates.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI/PLG_EnemyAi.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/AI/PLG_EnemyAi.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/PLG_Player.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_CharacterControllers/PLG_Player.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_CircleCharacter.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_CircleCharacter.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_EnemyCharacter.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_EnemyCharacter.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_PlayerCharacter.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Circles/PLG_PlayerCharacter.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Key/PLG_Key.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Key/PLG_KeyController.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Key/PLG_KeyController.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Wall/PLG_Wall.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Wall/PLG_WallController.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameObjects/PLG_Wall/PLG_WallController.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PacmanLikeGame.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PacmanLikeGame.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_Commons.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameWorld.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameWorld.hpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameWorldInfo.cpp
+        Packt_CreatingGamesWithAI/PackmanLikeGame/PLG_GameWorldInfo.hpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/AnimateTexture.cpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/AnimateTexture.hpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/Texture.cpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/Texture.hpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/TextureManager.cpp
+        Packt_CreatingGamesWithAI/Rendering/TextureRelated/TextureManager.hpp
+        Packt_CreatingGamesWithAI/Rendering/ApplicationWindow.cpp
+        Packt_CreatingGamesWithAI/Rendering/ApplicationWindow.hpp
+        Packt_CreatingGamesWithAI/Rendering/Renderer.cpp
+        Packt_CreatingGamesWithAI/Rendering/Renderer.hpp
+        Packt_CreatingGamesWithAI/Rendering/RenderingBuffer.cpp
+        Packt_CreatingGamesWithAI/Rendering/RenderingBuffer.hpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeAi_MM.cpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeAi_MM.hpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeBoard.cpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeBoard.hpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeCommons.hpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeGame.cpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeGame.hpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeGameModel.cpp
+        Packt_CreatingGamesWithAI/TictacToeGame/TicTacToeGameModel.hpp
+        Packt_CreatingGamesWithAI/main.cpp Packt_CreatingGamesWithAI/Includes.h)
+
+#incldue sdl libraries
+INCLUDE(FindPkgConfig)
+
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+
+INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} )
